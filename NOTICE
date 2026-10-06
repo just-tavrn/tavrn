@@ -1,0 +1,7 @@
+tavrn (umbrella repository)
+Copyright 2026 The tavrn authors
+
+This repository contains the overview documentation of the tavrn project. The documents are licensed under
+CC-BY-4.0 (see LICENSE and LICENSE.md); the scripts and GitHub Actions workflows are licensed under the Apache
+License, Version 2.0 (see LICENSE-APACHE). The name "tavrn", the logo and the icons in assets/ are trademarks
+of the project and are not covered by either license (see TRADEMARK.md).

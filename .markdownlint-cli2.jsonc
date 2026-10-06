@@ -1,0 +1,13 @@
+// Markdown lint configuration (markdownlint-cli2). The documents use long lines (they are rendered, not read
+// in a terminal), inline HTML for the centered header of the README, and tables with inline code.
+{
+  "config": {
+    "default": true,
+    "MD013": false,
+    "MD033": { "allowed_elements": ["p", "picture", "source", "img", "br", "strong", "a", "h1", "table", "tr", "td"] },
+    "MD041": false,
+    "MD060": false
+  },
+  "globs": ["**/*.md"],
+  "ignores": ["node_modules/**"]
+}

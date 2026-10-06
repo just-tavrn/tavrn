@@ -1,0 +1,31 @@
+name: Project question or discussion
+description: A question about the project as a whole (direction, governance, licensing, the repository layout). Usage and setup questions fit Discussions better.
+title: "question: "
+labels: [question, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Most questions get faster and more visible answers in [Discussions](https://github.com/just-tavrn/tavrn/discussions)
+        (Q&A, Ideas). Use this form for questions about the project itself that need a tracked answer from the maintainers.
+        Bugs and feature requests belong in the repository that owns the code.
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question or topic
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context (optional)
+      description: What you already read (README, docs/faq.md, the protocol) and why it did not answer the question.
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched the FAQ, the existing issues and Discussions.
+          required: true
+        - label: This is not a security vulnerability (those are reported privately, see SECURITY.md).
+          required: true

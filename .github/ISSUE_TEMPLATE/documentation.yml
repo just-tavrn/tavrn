@@ -1,0 +1,37 @@
+name: Documentation
+description: Something in this repository's documents is wrong, unclear, outdated or missing.
+title: "docs: "
+labels: [documentation, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This repository holds the overview documents (README, architecture, roadmap, self-hosting orientation, FAQ).
+        Problems with the operator documentation of a node belong in tavrn-node, problems with the specification in
+        tavrn-protocol. Small fixes are welcome directly as a pull request.
+  - type: input
+    id: location
+    attributes:
+      label: Document and section
+      description: File and heading, or a link to the line.
+      placeholder: docs/architecture.md, "End-to-end encryption"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or missing
+      description: Quote the text if it helps. If the document contradicts the protocol, link the protocol section.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested wording (optional)
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Before you submit
+      options:
+        - label: This is not a security vulnerability (those are reported privately, see SECURITY.md).
+          required: true

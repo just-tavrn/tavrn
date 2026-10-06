@@ -1,0 +1,25 @@
+# Issues in this repository are only for its documentation and for project-level questions. Bugs and feature
+# requests go to the repository that owns the code.
+blank_issues_enabled: false
+contact_links:
+  - name: "Bug or feature: node server, image, deployment (tavrn-node)"
+    url: https://github.com/just-tavrn/tavrn-node/issues/new/choose
+    about: Problems with running a node, the API, federation on the server side, voice on the server, the container image or the operator documentation.
+  - name: "Bug or feature: web client, apps, end-to-end tests (tavrn-web)"
+    url: https://github.com/just-tavrn/tavrn-web/issues/new/choose
+    about: Anything you see in the web client, later the desktop and mobile apps, including accessibility problems.
+  - name: "Bug or feature: SDK, e2ee layer, bot runtime (tavrn-js)"
+    url: https://github.com/just-tavrn/tavrn-js/issues/new/choose
+    about: "@tavrn/sdk, @tavrn/e2ee, @tavrn/bot and the example bots."
+  - name: "Bug or feature: encryption core (tavrn-crypto)"
+    url: https://github.com/just-tavrn/tavrn-crypto/issues/new/choose
+    about: The Rust crate and the WebAssembly package @tavrn/crypto.
+  - name: "Protocol change or question (tavrn-protocol)"
+    url: https://github.com/just-tavrn/tavrn-protocol/issues/new/choose
+    about: The specification, openapi.json, test vectors and permission bits; anything that changes what goes over the wire.
+  - name: Report a security vulnerability
+    url: https://github.com/just-tavrn/.github/blob/main/SECURITY.md
+    about: Never in public issues. Use private vulnerability reporting on the affected repository, as the security policy describes.
+  - name: Questions, ideas, show and tell
+    url: https://github.com/just-tavrn/tavrn/discussions
+    about: Ask questions, get help with a node, share ideas and what you built in Discussions.

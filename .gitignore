@@ -1,0 +1,30 @@
+# Private files that never belong in a tavrn repository
+.claude/
+CLAUDE.md
+docs/PLAN.md
+MEMORY.md
+memory/
+data-dev/
+data/
+pgdata/
+*.db
+*.sqlite
+*.sqlite3
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.publish-check.private
+
+# Test and build output (the screenshot script runs elsewhere, see assets/screenshots/README.md)
+test-results/
+playwright-report/
+target/
+node_modules/
+.lycheecache
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store

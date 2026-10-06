@@ -1,0 +1,69 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# Checks of the umbrella repository: Markdown lint, offline link check, SPDX headers, shell lint, publication
+# hygiene and the secret scan. Every job is gated by the repository variable CI_ENABLED (docs/GITHUB.md):
+# nothing runs on GitHub until the owner sets it to "true".
+name: Docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Markdown lint, links, SPDX headers, shellcheck
+    if: ${{ vars.CI_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Markdown lint (markdownlint-cli2, configuration in .markdownlint-cli2.jsonc)
+        env:
+          MARKDOWNLINT_CLI2_VERSION: "0.23.3"
+        run: npx --yes "markdownlint-cli2@${MARKDOWNLINT_CLI2_VERSION}"
+      - name: Install lychee
+        env:
+          LYCHEE_VERSION: "0.24.2"
+          # sha256 of lychee-x86_64-unknown-linux-gnu.tar.gz of that release
+          LYCHEE_SHA256: "1f4e0ef7f6554a6ed33dd7ac144fb2e1bbed98598e7af973042fc5cd43951c9a"
+        run: |
+          tmp="$(mktemp -d)"
+          file="lychee-x86_64-unknown-linux-gnu.tar.gz"
+          curl -fsSL -o "$tmp/$file" "https://github.com/lycheeverse/lychee/releases/download/lychee-v${LYCHEE_VERSION}/$file"
+          echo "${LYCHEE_SHA256}  $tmp/$file" | sha256sum -c -
+          tar -xzf "$tmp/$file" -C "$tmp"
+          sudo install -m 0755 "$tmp/lychee-x86_64-unknown-linux-gnu/lychee" /usr/local/bin/lychee
+          lychee --version
+      - name: Link check (offline: relative links, files and anchors; remote links are not fetched)
+        run: scripts/check-links.sh
+      - name: SPDX headers
+        run: scripts/check-spdx.sh
+      - name: shellcheck
+        run: shellcheck scripts/*.sh
+
+  publish-check:
+    name: Publication hygiene
+    if: ${{ vars.CI_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: No private files, domains or secrets
+        env:
+          # Comma-separated private domains, hosts and addresses (repository or organization secret).
+          PUBLISH_CHECK_PRIVATE: ${{ secrets.PUBLISH_CHECK_PRIVATE }}
+        run: scripts/publish-check.sh
+
+  gitleaks:
+    if: ${{ vars.CI_ENABLED == 'true' }}
+    uses: just-tavrn/.github/.github/workflows/gitleaks.yml@main

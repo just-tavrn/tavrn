@@ -1,0 +1,12 @@
+# Weekly, grouped updates of the workflow actions (the repository has no package dependencies).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    labels: [dependencies, github-actions]
+    groups:
+      actions:
+        patterns: ["*"]
