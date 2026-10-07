@@ -14,6 +14,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     name: Markdown lint, links, SPDX headers, shellcheck
@@ -43,7 +47,7 @@ jobs:
           tar -xzf "$tmp/$file" -C "$tmp"
           sudo install -m 0755 "$tmp/lychee-x86_64-unknown-linux-gnu/lychee" /usr/local/bin/lychee
           lychee --version
-      - name: Link check (offline: relative links, files and anchors; remote links are not fetched)
+      - name: "Link check (offline: relative links, files and anchors; remote links are not fetched)"
         run: scripts/check-links.sh
       - name: SPDX headers
         run: scripts/check-spdx.sh
