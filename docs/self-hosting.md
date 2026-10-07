@@ -2,7 +2,7 @@
 
 This page tells you what running a tavrn node involves, so you can decide whether it fits your server and your
 community. The actual installation guide, every configuration variable and the reverse proxy examples live in
-the operator documentation of [tavrn-node](https://github.com/just-tavrn/tavrn-node); this page only points
+the [operator handbook](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md) of [tavrn-node](https://github.com/just-tavrn/tavrn-node); this page only points
 there.
 
 > tavrn is in private review. The container image is not published yet; until then a node is built from the
@@ -17,8 +17,9 @@ One container image (`ghcr.io/just-tavrn/tavrn-node` once published) holds every
 - `livekit-server` for voice, video and screen sharing, started and supervised by the node,
 - the blob storage for attachments, avatars and emojis on a data volume (encrypted at rest with per-file keys).
 
-Everything is configured through `TAVRN_*` environment variables (optionally a configuration file). The node
-validates its configuration at start and refuses to start with a precise list of problems.
+Everything is configured through `TAVRN_*` environment variables (optionally a configuration file); the
+handbook's [Configuration](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#configuration) section lists every variable with its default. The node validates its
+configuration at start and refuses to start with a precise list of problems.
 
 ```mermaid
 flowchart LR
@@ -45,7 +46,9 @@ flowchart LR
 | **Optionally Valkey** | Only to run one node as several instances behind a load balancer. A single instance needs nothing besides PostgreSQL. |
 
 Hardware needs are modest: the node is a single Rust process, and the server never processes message content
-(it is encrypted). Voice traffic is the part that grows with use.
+(it is encrypted). Voice traffic is the part that grows with use. Details: [Requirements](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#requirements),
+[Reverse proxy and TLS](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#reverse-proxy-and-tls), [Voice and video](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#voice-and-video) and
+[Scaling with Valkey](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#scaling-with-valkey) in the handbook.
 
 ## The decisions you make as an operator
 
@@ -71,13 +74,18 @@ privacy policy (the template is).
 
 Database migrations run automatically at start and only forward; the node refuses to start when the database is
 newer than the binary. Back up the database (`pg_dump`) and the data volume before every update. Follow the
-releases of tavrn-node for security fixes.
+releases of tavrn-node for security fixes. The handbook describes [keys and backups](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#keys-and-backups),
+[upgrade and rollback](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#upgrade-and-rollback), [metrics and health](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#metrics-and-health) and a
+[security hardening checklist](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#security-hardening-checklist).
 
 ## Where to go next
 
-1. The operator documentation in [tavrn-node](https://github.com/just-tavrn/tavrn-node): installation with
-   Docker Compose, the full list of variables (`.env.example`), the reverse proxy guide (including TURN over
-   TLS and delegation), voice connectivity, scaling with Valkey, backups and storage key rotation.
+1. The [operator handbook](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md) of tavrn-node, one document from top to bottom:
+   [installation with Docker Compose](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#install-with-docker-compose), every variable
+   ([Configuration](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#configuration)), the [reverse proxy](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#reverse-proxy-and-tls) (including TURN over TLS and
+   [delegation](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#identity-domain-and-node-host-delegation)), [voice connectivity](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#voice-and-video),
+   [web push](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#web-push), [scaling with Valkey](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#scaling-with-valkey), [backups](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#keys-and-backups) and
+   [storage key rotation](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#rotating-the-storage-key), [troubleshooting](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md#logs-and-troubleshooting).
 2. The [architecture overview](architecture.md), to understand what your node does and what it cannot do.
 3. [Discussions](https://github.com/just-tavrn/tavrn/discussions), category "Q&A", when you get stuck.
 

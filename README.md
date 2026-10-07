@@ -112,7 +112,7 @@ accounts.
 | … | Start here |
 |---|---|
 | **understand how tavrn works** | [docs/architecture.md](docs/architecture.md), then the [protocol](https://github.com/just-tavrn/tavrn-protocol) |
-| **run a node** | [docs/self-hosting.md](docs/self-hosting.md) for the overview, then the operator documentation in [tavrn-node](https://github.com/just-tavrn/tavrn-node) |
+| **run a node** | [docs/self-hosting.md](docs/self-hosting.md) for the overview, then the [operator handbook](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md) in [tavrn-node](https://github.com/just-tavrn/tavrn-node) |
 | **build a client or a bot** | the [protocol](https://github.com/just-tavrn/tavrn-protocol) (start with `PROTOCOL.md` and `APPLICATIONS.md`) and the packages in [tavrn-js](https://github.com/just-tavrn/tavrn-js) (`@tavrn/sdk`, `@tavrn/bot`) |
 | **contribute code, docs or translations** | the organization's [contributing guide](https://github.com/just-tavrn/.github/blob/main/CONTRIBUTING.md) and [code of conduct](https://github.com/just-tavrn/.github/blob/main/CODE_OF_CONDUCT.md) |
 | **report a vulnerability** | privately, as the [security policy](https://github.com/just-tavrn/.github/blob/main/SECURITY.md) describes; never in a public issue |
