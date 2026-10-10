@@ -2,7 +2,9 @@
 
 The PNG files here are made by [`make.ts`](make.ts), a Playwright script that drives the web client of a local
 development node with fictitious demo accounts (Mira Okafor, Jonas Berg, Lena Park, Theo Laurent) in the room
-"Night Owls Gaming". Everything shown is created by the script; the node's domain is `localhost`. The gallery is
+"Night Owls Gaming". Everything shown is created by the script; the node's domain is `localhost`. The demo
+accounts register through the normal wizard, including the date of birth every registration asks for (an adult
+date, so the node's minimum age `TAVRN_MINIMUM_AGE` and adults-only rooms never get in the way). The gallery is
 [docs/screenshots.md](../../docs/screenshots.md).
 
 ## Making them again
@@ -27,7 +29,8 @@ nothing itself.
 2. Start the web client's development server against it on port 5700, in tavrn-web:
    `E2E_NODE_PORT=8700 E2E_WEB_PORT=5700 pnpm --filter @tavrn/web dev`.
 3. Copy `make.ts` and `playwright.config.ts` into a new directory `e2e/shots/` of tavrn-web and run
-   `SHOTS_OUT=<this directory> npx playwright test -c shots/playwright.config.ts` from `e2e/`.
+   `SHOTS_OUT=<this directory> npx playwright test -c shots/playwright.config.ts` from `e2e/`
+   (`SHOTS_NODE_PORT` and `SHOTS_WEB_PORT` override the ports 8700 and 5700).
 4. Check the images, optimize them if `pngquant` or `oxipng` is installed (the script tries both), keep each file
    under 400 KB, and commit them. The demo node can be thrown away afterwards.
 

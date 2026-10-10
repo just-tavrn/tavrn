@@ -14,6 +14,8 @@ const NODE = `http://127.0.0.1:${process.env.SHOTS_NODE_PORT ?? "8700"}`;
 const OUT = resolve(process.env.SHOTS_OUT ?? "screenshots");
 const DESKTOP = { width: 1440, height: 900 };
 const PHONE = { width: 390, height: 844 };
+// Registration asks for the date of birth (protocol PROTOCOL.md §5e, `age.v1`); the demo accounts are adults.
+const DATE_OF_BIRTH = "1990-01-01";
 
 // ---- TOTP (RFC 6238), so the demo accounts can finish the mandatory second-factor enrollment ----------------
 
@@ -50,7 +52,7 @@ interface Demo {
   token: string;
 }
 
-/** Registers through the wizard (English UI): account, TOTP, recovery codes, recovery key. */
+/** Registers through the wizard (English UI): account with date of birth, TOTP, recovery codes, recovery key. */
 async function register(browser: Browser, username: string, displayName: string): Promise<Demo> {
   const context = await browser.newContext({ viewport: DESKTOP, locale: "en-US", colorScheme: "dark", permissions: ["microphone", "camera"] });
   const page = await context.newPage();
@@ -60,6 +62,7 @@ async function register(browser: Browser, username: string, displayName: string)
   await page.getByLabel("Username", { exact: true }).fill(username);
   await page.getByLabel("Password", { exact: true }).fill(password);
   await page.getByLabel("Repeat password", { exact: true }).fill(password);
+  await page.getByLabel("Date of birth", { exact: true }).fill(DATE_OF_BIRTH);
   await page.getByLabel("Display name (optional)", { exact: true }).fill(displayName);
   await page.getByRole("button", { name: "Create account" }).click();
   await expect(page.getByRole("heading", { name: "Set up a second factor" })).toBeVisible({ timeout: 30_000 });
