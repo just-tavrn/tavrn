@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <img alt="Status: private review" src="https://img.shields.io/badge/status-private%20review-orange">
+  <img alt="Status: pre-release" src="https://img.shields.io/badge/status-pre--release-orange">
   <img alt="Docs: CC-BY-4.0" src="https://img.shields.io/badge/docs-CC--BY--4.0-lightgrey">
   <img alt="Node: AGPL-3.0-only" src="https://img.shields.io/badge/node-AGPL--3.0--only-blue">
   <img alt="Crypto: MPL-2.0" src="https://img.shields.io/badge/crypto-MPL--2.0-blue">
@@ -32,9 +32,9 @@
   <a href="https://github.com/just-tavrn/tavrn/discussions">Discussions</a>
 </p>
 
-> **Status: in private review, going public soon.** The repositories of the
-> [just-tavrn](https://github.com/just-tavrn) organization are being reviewed before the first public release.
-> Some links may not work for you yet, and nothing is published to package registries so far.
+> **Status: pre-release.** tavrn is before its first stable release and the encryption code has not been audited
+> yet. Releases, the container image and the packages are described in the README of each
+> [repository](#repositories).
 
 ## What tavrn is
 

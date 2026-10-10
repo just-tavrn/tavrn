@@ -5,12 +5,12 @@ community. The actual installation guide, every configuration variable and the r
 the [operator handbook](https://github.com/just-tavrn/tavrn-node/blob/main/docs/HANDBOOK.md) of [tavrn-node](https://github.com/just-tavrn/tavrn-node); this page only points
 there.
 
-> tavrn is in private review. The container image is not published yet; until then a node is built from the
-> tavrn-node repository.
+> tavrn is pre-release software: the container image is published with every tavrn-node release, but expect
+> changes between releases and read the upgrade notes of each one.
 
 ## What a node is
 
-One container image (`ghcr.io/just-tavrn/tavrn-node` once published) holds everything that belongs to a node:
+One container image (`ghcr.io/just-tavrn/tavrn-node`) holds everything that belongs to a node:
 
 - the node server (`tavrn-node`, one Rust binary) with the HTTP API and the WebSocket,
 - the web client, embedded in the binary and served at `/`, so every node is also a place to sign in,

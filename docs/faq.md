@@ -136,7 +136,7 @@ and the light Tauri installer stays the recommended one.
 
 ## Is it production-ready?
 
-Not yet. tavrn is before its first public release, and the encryption code has **not been audited** yet. It
+Not yet. tavrn is before its first stable release, and the encryption code has **not been audited** yet. It
 builds on OpenMLS and well-known RustCrypto crates instead of primitives of its own and is tested against shared
 reference vectors, but treat it as pre-release software until the first stable release.
 
