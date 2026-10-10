@@ -3,10 +3,10 @@
 Honest answers, including the limits. If your question is missing, ask in
 [Discussions](https://github.com/just-tavrn/tavrn/discussions) (category "Q&A").
 
-## Is tavrn federated like Matrix?
+## Are rooms replicated across nodes?
 
-Federated, yes; like Matrix, no. In Matrix a room is replicated to every server that has a member in it, and the
-servers resolve conflicts in a shared event graph. In tavrn **a room lives on exactly one node**. Users of other
+No. Some federated chat systems replicate a room to every server that has a member in it, and the servers resolve
+conflicts in a shared event graph. In tavrn **a room lives on exactly one node**. Users of other
 nodes connect to that node directly with a short-lived token from their home node; nodes only exchange signed
 notifications (invites, friend requests, "you have a new DM"). This is much simpler and faster, and it keeps the
 data of a room in one place. The trade-off: when a node is offline, its rooms are offline until it returns,
