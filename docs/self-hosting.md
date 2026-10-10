@@ -53,9 +53,10 @@ Hardware needs are modest: the node is a single Rust process, and the server nev
 ## The decisions you make as an operator
 
 - **Who may register**: open, by invite (the default) or closed; whether e-mail is required; an optional
-  captcha. The first account becomes node admin.
-- **Who may create rooms**, and the limits per user and room: upload size and types, storage quotas, retention,
-  voice bitrate, screen sharing and camera limits.
+  captcha; the minimum age (16 by default; every registration states a date of birth, which stays private). The
+  first account becomes node admin.
+- **Who may create rooms**, and the limits per user and room: upload size and types, storage quotas, message
+  retention, voice bitrate, screen sharing and camera limits.
 - **Federation**: on by default; blocklists of other nodes, domain bans, whether your node is listed in the
   directory, and which reference nodes it announces itself to.
 - **Applications**: who may create bots, whether commands need approval, whether bots from other nodes are
