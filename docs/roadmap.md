@@ -2,8 +2,8 @@
 
 tavrn is built in phases. Every phase ends with something usable, and the order was chosen so that the
 decisions that affect everything (identity, message format, encryption) were settled first. Phases 0 to 5 are
-done; the project is in private review before its first public release. There are no dates here: things ship
-when they are ready and tested.
+done and phase 6 is in progress; the project is in private review before its first public release. There are no
+dates here: things ship when they are ready and tested.
 
 Ideas and wishes are welcome in [Discussions](https://github.com/just-tavrn/tavrn/discussions) (category
 "Ideas"); concrete feature requests go to the repository that owns the code.
@@ -74,22 +74,67 @@ several instances.
 After phase 5 the project was split into its public repositories (see the [README](../README.md#repositories)),
 which are now in review.
 
-## Planned
+## In progress
 
 ### Phase 6: Desktop and mobile apps
 
-Native apps built with Tauri from the same web code base: Windows, macOS and Linux first, then Android and iOS.
+Native apps built with Tauri from the same web code base. The desktop app for Linux and Windows exists; macOS, then
+Android and iOS follow.
 
-- The encryption core runs natively; device keys go into the operating system's keychain.
-- **Global hotkeys** on the desktop (push-to-talk, priority speaker, mute, deafen) that work while the app is in
-  the background.
-- **Native push notifications** on mobile.
-- The **local activity bridge**: with the user's consent, a local program (such as a game) can set the
-  user's activity; the interface is already specified and mocked in the web client.
+Done so far in the desktop app:
+
+- **The app itself**: a Tauri shell for Linux (`.deb`, `.AppImage`) and Windows (`.msi`, NSIS installer) that
+  bundles the web client instead of loading it from a node, updates itself from signed releases and publishes a
+  checksum file for every installer.
+- **Signing in through the node's own page** (node picker, handoff to a sign-in window or the system browser), so
+  passkeys, single sign-on and captchas work in the app, and **unlocking with a passkey**: the node's page seals the
+  passkey's unlock material to the app, which the node can store but never open.
+- **The OS keychain** for the key of the local key store (Secret Service on Linux, Credential Manager on Windows),
+  with a visible fallback when no keychain answers; native notifications, a tray icon with the voice state and close
+  to tray.
+- **Global hotkeys** for push-to-talk, the priority speaker, mute and deafen, one binding each, also a modifier key
+  alone; the keys are observed, never taken away from the game that has the focus.
+- **A native voice engine** on LiveKit's Rust SDK: always on Linux (where the webview's WebRTC is limited), as an
+  experimental setting on Windows; audio only in this first version, encrypted with the same frame keys as in the
+  browser.
+- **Downloads** through the native save dialog, with "Show in folder".
+
+Done in the same cycle in the protocol, the node and the clients:
+
+- **Age assurance, first slice**: a date of birth at registration, the node's minimum age (16 by default), a private
+  age status, adults-only rooms and channels, and a signed "over 18" claim between nodes instead of the date.
+- **End-to-end encrypted files channels** by default (chosen when the channel is created).
+- **History**: restore of encrypted history after a key reset by request and approval, history for members who open
+  a channel only later (`since_join` without gaps), and history shares sealed to each recipient device (share
+  format 2, with a share key per device attested by the device key).
+- **Permissions and visibility**: layered permissions with a channel-scoped set of bits and overrides for single
+  members; members who cannot view a channel no longer receive its events, notification hints or pushes, and room
+  details hide such channels; members can be moved into voice channels they could not join or see on their own.
+- **Security reviews**: two rounds of an authorization audit and two rounds of an end-to-end encryption review, with
+  every finding fixed and covered by regression tests (among them signed context for replies and threads, the refusal
+  of stale MLS epochs, a "key changed" state for ghost members and a per-user rate limit).
+- **Social and client**: friends see which voice channel a friend is in and can join it, a hover card and voice and
+  streaming badges in the room rail, room invites from the friend and member menus, marks for channels a member
+  cannot enter and for private channels, the allowed file types per role and channel in the permission editors, a
+  warning before downloading executables, context menus that stay open while toggling, rail folders, voice quick
+  menus and a screen wake lock during calls.
+- **Operators**: localized mails (English and German, replaceable templates), expiry notices for tokens, message
+  retention, live reload of auto-moderation rules and push notifications for new reports.
+
+Next in phase 6:
+
+- Camera, screen sharing and the soundboard in the native voice engine, and a decision on the native engine as the
+  default on Windows after measurements on real hardware.
+- The macOS app.
+- Android and iOS apps with **native push notifications** and voice that keeps running with the display off.
+- The **local activity bridge**: with the user's consent, a local program (such as a game) can set the user's
+  activity; the interface is already specified and mocked in the web client.
 - The local search index without the browser's size budget.
 
-Native apps also narrow the inherent limit of browser-based encryption, where the web client is code served
-by a node.
+Native apps also narrow the inherent limit of browser-based encryption, where the web client is code served by a
+node: the desktop app runs only the client it was installed with.
+
+## Planned
 
 ### Phase 7: Account resilience
 
@@ -103,6 +148,13 @@ Keeping an account usable when its home node fails, without turning accounts int
 
 Encryption is untouched by this: keys stay with the user, and replicas see only what the home node sees.
 
+### Also planned
+
+- **Reports across nodes**: a report about a user of another node can be forwarded to that user's home node, whose
+  admins are the ones able to act on the account.
+- **Age assurance beyond the self-declared date of birth**: verification through pluggable providers, node
+  policies and federated claims that other nodes can trust.
+
 ## Open ideas
 
 Smaller items that are agreed in principle but not scheduled:
@@ -111,6 +163,8 @@ Smaller items that are agreed in principle but not scheduled:
   connection or a reload (and an app restart in the native apps).
 - **Attachments for bots and sealed webhooks**: files in posts that bots and write-only webhooks make in
   encrypted channels.
+- **Encrypted room metadata** for private rooms (low priority): role, channel and category names and topics
+  encrypted for the members, optional per room.
 - Offline reading of the history a device keeps locally, client plugins, cross-posting of announcements between
   rooms, and S3-compatible storage for attachments (files channels can already keep their files on WebDAV or
   S3-compatible storage).
