@@ -37,8 +37,9 @@ The role editor of the room settings: hierarchy, colour, "show separately" and t
 
 ## Files channel
 
-A shared folder tree per channel. Files channels are never end-to-end encrypted, and the client says so
-permanently.
+A shared folder tree per channel. Files channels are end-to-end encrypted by default: names, folder names and
+contents are encrypted on the devices, and search runs on the local index. This picture shows a channel created
+without end-to-end encryption, which the client marks with a permanent banner.
 
 ![A files channel with folders and files and the banner that files are not end-to-end encrypted](../assets/screenshots/files-desktop.png)
 

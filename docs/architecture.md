@@ -147,8 +147,15 @@ flowchart TD
 - **Plaintext only as an explicit choice.** DMs, group DMs and voice are always encrypted. A room admin may
   switch an individual text, announcement or forum channel to plaintext (for server-side search, very large
   public channels or integrations); every client must then show a permanent banner above the messages ("This
-  channel is not end-to-end encrypted. The operator of node.example can read along."). Files channels, shared
-  folder trees on the node, are never end-to-end encrypted and say so permanently.
+  channel is not end-to-end encrypted. The operator of node.example can read along.").
+- **Files channels** (shared folder trees) are end-to-end encrypted by default, with their own MLS group like a
+  text channel. Every file gets a random file key; content and thumbnail are encrypted in 1 MiB AES-256-GCM chunks
+  under part keys derived from it with HKDF, and the name, type and file key travel in an entry record encrypted
+  under the channel's group. The node stores ciphertext and sees sizes, times, the folder structure and who
+  uploaded, never names or contents; search runs on the clients' local index. New members get the earlier files
+  by default (history policy `all`, or `since_join`), and members who lost their keys can still delete their own
+  uploads. Whether a files channel is encrypted is chosen when it is created and cannot change; an unencrypted
+  one shows a permanent banner.
 - **Search** in encrypted conversations uses a local, encrypted index on the device; nodes only search
   plaintext channels.
 
@@ -157,7 +164,8 @@ node, so a malicious node could serve a modified client. Native apps and reprodu
 
 Specification: [`ENCRYPTION.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/ENCRYPTION.md)
 (threat model in §11), [`SEARCH.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/SEARCH.md),
-[`PROTOCOL.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/PROTOCOL.md) §8 (the banner).
+[`PROTOCOL.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/PROTOCOL.md) §8 (the banner),
+[`FILES.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/FILES.md) §8 (encrypted files channels).
 Implementation: [tavrn-crypto](https://github.com/just-tavrn/tavrn-crypto) and `@tavrn/e2ee` in
 [tavrn-js](https://github.com/just-tavrn/tavrn-js).
 

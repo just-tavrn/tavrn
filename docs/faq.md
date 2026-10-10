@@ -19,7 +19,10 @@ end-to-end encrypted with MLS, and the keys stay on your devices. The operator d
 which room and conversation, who writes when, whom a message mentions (so the node can notify), file sizes, and
 your profile. Room admins can switch individual text, announcement or forum channels to **plaintext** (for
 example for very large public channels or server-side search); then every client shows a permanent banner that
-the operator can read along. Files channels (shared folders) are never end-to-end encrypted and say so.
+the operator can read along. Files channels (shared folders) are end-to-end encrypted by default as well: file
+names, folder names and contents are encrypted on your devices, and the node stores ciphertext and sees only sizes,
+times and the shape of the folder tree. A room admin can create a files channel without end-to-end encryption
+instead (the choice is fixed when the channel is created); such a channel shows a permanent banner, too.
 
 One limit applies to every browser-based end-to-end encryption: the web client is code that a node serves. A
 malicious operator could serve a modified client. The native apps planned for phase 6 and reproducible builds

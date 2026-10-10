@@ -48,7 +48,7 @@ running a node never read along, and voice and video are encrypted with keys fro
 **one container image** configured with environment variables, next to PostgreSQL and the reverse proxy you
 already have.
 
-- 🔐 **End-to-end encrypted by default.** Channels, DMs, group DMs, attachments and calls; plaintext channels exist
+- 🔐 **End-to-end encrypted by default.** Channels, DMs, group DMs, attachments, shared files and calls; plaintext channels exist
   only as an explicit choice of the room, with a permanent banner in every client.
 - 🌐 **Federated without a centre.** Each room lives on exactly one node; clients talk to that node directly,
   nodes only exchange signed notifications. Use your own domain for your addresses.
