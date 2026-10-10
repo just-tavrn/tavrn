@@ -194,9 +194,9 @@ Implementation: [tavrn-crypto](https://github.com/just-tavrn/tavrn-crypto) and `
 - **Connectivity.** Media uses a UDP port range; ICE over TCP and an embedded TURN server (over UDP, or over TLS
   through the reverse proxy on port 443) cover strict networks. The client has a connection test that tries
   every path and says what to fix.
-- **Native voice in the desktop app.** On Linux (and on Windows as an experimental setting) the desktop app joins
-  calls with LiveKit's Rust SDK instead of the webview's WebRTC, through the same signaling proxy and with the same
-  frame keys, so it talks to browsers without any difference for the node.
+- **Native voice in the Tauri app.** As an experimental setting on Windows (and always in its Linux bundles, which
+  the Electron app replaces) the Tauri app joins calls with LiveKit's Rust SDK instead of the webview's WebRTC, through
+  the same signaling proxy and with the same frame keys, so it talks to browsers without any difference for the node.
 - **Moving members.** A member with the permission to move others can move a member into a voice channel that member
   could not join or even see on their own; the move grants exactly that participation and ends with it.
 - Calls in DMs and group DMs, webcams with a tile view, screen sharing within node limits, a soundboard, a shared
@@ -205,6 +205,25 @@ Implementation: [tavrn-crypto](https://github.com/just-tavrn/tavrn-crypto) and `
 Specification: [`VOICE.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/VOICE.md),
 [`ENCRYPTION.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/ENCRYPTION.md) §5a,
 [`WHITEBOARD.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/WHITEBOARD.md).
+
+## Desktop apps
+
+The desktop app bundles the web client instead of loading it from a node, asks for the home node on its first start
+and talks to that node over the public API like any other client; the client itself does not care which shell it runs
+in. There are two shells:
+
+- **Tauri on Windows (and macOS later):** a small native shell around the system's webview (WebView2 on Windows).
+- **Electron on Linux:** the WebKitGTK that Linux distributions ship has no WebRTC and differs from one distribution to
+  the next, and a prototype of video in a native engine showed that every video feature would have to be built twice.
+  Chromium brings voice, video and screen sharing with the client unchanged. If a future Tauri version offers a
+  Chromium-based or WebRTC-capable webview on Linux, the Linux app may move back to Tauri.
+
+Both shells keep the same rules: only the bundled client may call the shell, the node's own pages (for passkeys,
+single sign-on and captchas) open in a separate window without any access to it, the key of the local key store lives
+in the OS keychain, and global hotkeys observe keys without taking them away from a game. A Windows build of the
+Electron shell is planned as a fallback for machines where WebView2 causes trouble; the Tauri installer stays the
+recommended one. Details:
+[`docs/DESKTOP.md`](https://github.com/just-tavrn/tavrn-web/blob/main/docs/DESKTOP.md) in tavrn-web.
 
 ## Applications, bots and webhooks
 

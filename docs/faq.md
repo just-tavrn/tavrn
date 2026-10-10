@@ -118,11 +118,21 @@ does not work for you, please tell us: accessibility problems are bugs.
 ## Which apps are there?
 
 The web client, which every node serves and which works on phones, tablets and desktops (it is responsive from the
-start), and the **desktop app for Linux and Windows**, built with Tauri from the same code. The app brings global
-hotkeys for push-to-talk, mute and deafen that work while a game has the focus, the OS keychain for your local keys,
-native notifications and a tray icon, signing in and unlocking with a passkey through your node's page, and on Linux
-a native voice engine. A macOS app and mobile apps for Android and iOS (with native push notifications) come next;
-see the [roadmap](roadmap.md).
+start), and the **desktop app for Linux and Windows**, built from the same code: an Electron app on Linux, a Tauri
+app on Windows. The app brings global hotkeys for push-to-talk, mute and deafen that work while a game has the focus,
+the OS keychain for your local keys, native notifications and a tray icon, signing in and unlocking with a passkey
+through your node's page, and voice, video and screen sharing. A macOS app and mobile apps for Android and iOS (with
+native push notifications) come next; see the [roadmap](roadmap.md).
+
+## Why is the Linux app an Electron app?
+
+Because the WebKitGTK that Linux distributions ship has no WebRTC and differs from one distribution to the next, and a
+prototype of video in a native engine showed that every video feature would have to be built twice; Chromium, which
+Electron brings along, runs voice, video and screen sharing with the client unchanged. If a future Tauri version offers
+a better way to solve this on Linux (a Chromium-based or WebRTC-capable webview), the Linux app may move back to Tauri;
+Tauri stays the shell for Windows and macOS. A Windows build of the Electron app is planned as a fallback for machines
+where the integrated WebView2 causes trouble: releases will attach it clearly marked as the fallback ("full version"),
+and the light Tauri installer stays the recommended one.
 
 ## Is it production-ready?
 
