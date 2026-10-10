@@ -43,9 +43,8 @@ catch-all. Pin a welcome post in Announcements that links the README, the FAQ an
 
 **Once public**: organization Settings → **Discussions** → **Enable discussions for this organization** with
 **`just-tavrn/tavrn`** as the source repository, so the organization's Discussions tab shows these. The
-organization profile, `CONTRIBUTING.md`, `SUPPORT.md` and the issue templates in the `.github` repository
-currently point at `just-tavrn/.github/discussions`; switch them to this repository at the same time (or the
-other way round, if the owner decides to keep Discussions in `.github`), so there is only one place.
+organization profile, `CONTRIBUTING.md`, `SUPPORT.md` and the issue choosers of every repository already link
+here; Discussions of the `.github` repository are switched off at the same time, so there is only one place.
 
 ## Settings to switch on by hand
 
