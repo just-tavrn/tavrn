@@ -62,9 +62,9 @@ already have.
   TLS, and a UDP range for voice. Optional Valkey when one node runs as several instances.
 - ⚖️ **Operator tooling for the law.** Takedown notices, legal pages, terms acceptance, data export and
   account deletion, all optional.
-- 💻 **A desktop app for Linux and Windows.** The same client in a Tauri shell, with global hotkeys for
-  push-to-talk, the OS keychain for local keys, a tray icon, passkey unlock and a native voice engine on Linux;
-  macOS and mobile apps follow.
+- 💻 **A desktop app for Linux and Windows.** The same client in an Electron shell on Linux and a Tauri shell on
+  Windows, with global hotkeys for push-to-talk, the OS keychain for local keys, a tray icon, passkey unlock, voice,
+  video and screen sharing; macOS and mobile apps follow.
 - ♿ **Accessible.** The web client targets WCAG 2.2 AA and is checked automatically on phone, tablet and
   desktop layouts.
 
@@ -106,7 +106,7 @@ accounts.
 | [tavrn-crypto](https://github.com/just-tavrn/tavrn-crypto) | The encryption core (Rust, OpenMLS), native and as WebAssembly (`@tavrn/crypto`) | MPL-2.0 |
 | [tavrn-js](https://github.com/just-tavrn/tavrn-js) | JavaScript packages without UI: the SDK `@tavrn/sdk`, the encryption layer `@tavrn/e2ee` and the bot runtime `@tavrn/bot` | Apache-2.0 (`sdk`, `bot`), MPL-2.0 (`e2ee`) |
 | [tavrn-node](https://github.com/just-tavrn/tavrn-node) | The node server (Rust), its container image, deployment examples and the operator documentation | AGPL-3.0-only |
-| [tavrn-web](https://github.com/just-tavrn/tavrn-web) | The web client (React, TypeScript), the desktop app for Linux and Windows (Tauri), later the mobile apps, and the end-to-end test suite | Apache-2.0 |
+| [tavrn-web](https://github.com/just-tavrn/tavrn-web) | The web client (React, TypeScript), the desktop app for Linux (Electron) and Windows (Tauri), later the mobile apps, and the end-to-end test suite | Apache-2.0 |
 | [.github](https://github.com/just-tavrn/.github) | Organization profile, contributing guide, code of conduct, security policy, CLA and shared CI workflows | CC-BY-4.0 (texts), Apache-2.0 (workflows) |
 | **tavrn** (this repository) | The entry point: overview, architecture, roadmap, self-hosting orientation, FAQ, Discussions | CC-BY-4.0 (texts) |
 

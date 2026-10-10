@@ -78,14 +78,19 @@ which are now in review.
 
 ### Phase 6: Desktop and mobile apps
 
-Native apps built with Tauri from the same web code base. The desktop app for Linux and Windows exists; macOS, then
-Android and iOS follow.
+Native apps built from the same web code base. The desktop app for Linux (an Electron shell) and Windows (a Tauri
+shell) exists; macOS, then Android and iOS follow.
 
 Done so far in the desktop app:
 
-- **The app itself**: a Tauri shell for Linux (`.deb`, `.AppImage`) and Windows (`.msi`, NSIS installer) that
-  bundles the web client instead of loading it from a node, updates itself from signed releases and publishes a
-  checksum file for every installer.
+- **The app itself**: a Tauri shell for Windows (`.msi`, NSIS installer) and, until the Electron packages replace them
+  in the releases, Linux (`.deb`, `.AppImage`) that bundles the web client instead of loading it from a node, updates
+  itself from signed releases and publishes a checksum file for every installer.
+- **The Electron shell for Linux**: the same client in Chromium, so voice, video, screen sharing (the shell's own
+  picker, the PipeWire portal on Wayland), the soundboard and the background effects work as in the browser; the OS
+  keychain through the desktop's keyring, the tray, native notifications, downloads, global hotkeys with the Tauri
+  app's key listener, a hardened shell (sandboxed renderer, a checked bridge, Electron's fuses), its own updater, and CI
+  with a full smoke test of the AppImage. It takes over the home node of an installed Tauri app.
 - **Signing in through the node's own page** (node picker, handoff to a sign-in window or the system browser), so
   passkeys, single sign-on and captchas work in the app, and **unlocking with a passkey**: the node's page seals the
   passkey's unlock material to the app, which the node can store but never open.
@@ -94,9 +99,10 @@ Done so far in the desktop app:
   to tray.
 - **Global hotkeys** for push-to-talk, the priority speaker, mute and deafen, one binding each, also a modifier key
   alone; the keys are observed, never taken away from the game that has the focus.
-- **A native voice engine** on LiveKit's Rust SDK: always on Linux (where the webview's WebRTC is limited), as an
-  experimental setting on Windows; audio only in this first version, encrypted with the same frame keys as in the
-  browser.
+- **A native voice engine** in the Tauri app on LiveKit's Rust SDK: always in its Linux bundles (where the webview has
+  no WebRTC), as an experimental setting on Windows; audio only, encrypted with the same frame keys as in the browser.
+  A prototype of video in this engine showed that every video feature would have to be built twice, which led to the
+  Electron shell for Linux; the prototype is archived, its measurements are kept in tavrn-web's desktop documentation.
 - **Downloads** through the native save dialog, with "Show in folder".
 
 Done in the same cycle in the protocol, the node and the clients:
@@ -123,8 +129,10 @@ Done in the same cycle in the protocol, the node and the clients:
 
 Next in phase 6:
 
-- Camera, screen sharing and the soundboard in the native voice engine, and a decision on the native engine as the
-  default on Windows after measurements on real hardware.
+- The release wiring of the Electron shell: its Linux packages and update feed in every release (the Tauri Linux
+  bundles retire then), and a Windows build of the Electron shell as a fallback for machines where WebView2 causes
+  trouble, next to the recommended Tauri installer.
+- A decision on the native engine as the default on Windows after measurements on real hardware.
 - The macOS app.
 - Android and iOS apps with **native push notifications** and voice that keeps running with the display off.
 - The **local activity bridge**: with the user's consent, a local program (such as a game) can set the user's
