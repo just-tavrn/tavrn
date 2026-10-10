@@ -73,6 +73,12 @@ compiled to WebAssembly, by browsers and bots.
   session there.
 - **Accounts are protected by a mandatory second factor** (TOTP or passkeys) for every password account.
   Operators can attach single sign-on (OpenID Connect) instead.
+- **Ages stay at home.** Registration asks for a date of birth (the user's own statement) and the node's minimum
+  age applies. The date never leaves the home node; for adults-only rooms and channels on other nodes the home node
+  signs only an "18 or older" claim into the federation token.
+- **Permissions are layered.** Room roles grant permission bits, categories and channels refine them with
+  overrides for roles and single members, and a member who cannot view a channel receives nothing about it: no
+  events, notification hints or pushes, and room details leave it out.
 
 Specification: [`PROTOCOL.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/PROTOCOL.md) §1, §5,
 §5a; [`FEDERATION.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/FEDERATION.md) §2–§6.
@@ -131,7 +137,12 @@ flowchart TD
   with it and signed by the sending device. This keeps forward secrecy per epoch and post-compromise security
   through MLS while allowing history: a new device restores the **history backup** (content keys encrypted with
   the backup key, stored on the home node), and channels can share keys of older epochs with new members within
-  the room's history policy.
+  the room's history policy (`since_join`, `days:<n>` or `all`). Such shares are sealed to each recipient device
+  under a share key that the device key attests, so the node only routes them.
+- **History after a key reset.** A reset does not hand the old history to the new keys automatically (whoever
+  took over an account would read it). The member asks the room for it; another member with the permission to
+  restore history approves or denies, the approval is recorded in the audit log and the welcome channel, and only
+  then do the other members' clients share the older keys, within the same policy.
 - **Recovery without passwords as keys.** The master secret is wrapped for the home node under a recovery key
   (shown once as 24 words) and optionally a passkey's PRF output. Passwords never derive encryption keys, so a
   leaked password database gives nothing to brute-force.
@@ -147,17 +158,27 @@ flowchart TD
 - **Plaintext only as an explicit choice.** DMs, group DMs and voice are always encrypted. A room admin may
   switch an individual text, announcement or forum channel to plaintext (for server-side search, very large
   public channels or integrations); every client must then show a permanent banner above the messages ("This
-  channel is not end-to-end encrypted. The operator of node.example can read along."). Files channels, shared
-  folder trees on the node, are never end-to-end encrypted and say so permanently.
+  channel is not end-to-end encrypted. The operator of node.example can read along.").
+- **Files channels** (shared folder trees) are end-to-end encrypted by default, with their own MLS group like a
+  text channel. Every file gets a random file key; content and thumbnail are encrypted in 1 MiB AES-256-GCM chunks
+  under part keys derived from it with HKDF, and the name, type and file key travel in an entry record encrypted
+  under the channel's group. The node stores ciphertext and sees sizes, times, the folder structure and who
+  uploaded, never names or contents; search runs on the clients' local index. New members get the earlier files
+  by default (history policy `all`, or `since_join`), and members who lost their keys can still delete their own
+  uploads. Whether a files channel is encrypted is chosen when it is created and cannot change; an unencrypted
+  one shows a permanent banner.
 - **Search** in encrypted conversations uses a local, encrypted index on the device; nodes only search
   plaintext channels.
 
 The honest limit of every browser-based end-to-end encryption applies: the web client is code served by a
-node, so a malicious node could serve a modified client. Native apps and reproducible builds narrow this.
+node, so a malicious node could serve a modified client. The desktop app, which bundles the client it was
+installed with, and reproducible builds narrow this.
 
 Specification: [`ENCRYPTION.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/ENCRYPTION.md)
 (threat model in §11), [`SEARCH.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/SEARCH.md),
-[`PROTOCOL.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/PROTOCOL.md) §8 (the banner).
+[`PROTOCOL.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/PROTOCOL.md) §8 (the banner),
+[`FILES.md`](https://github.com/just-tavrn/tavrn-protocol/blob/main/FILES.md) §8 (encrypted files channels);
+history shares and restores in `ENCRYPTION.md` §7b.
 Implementation: [tavrn-crypto](https://github.com/just-tavrn/tavrn-crypto) and `@tavrn/e2ee` in
 [tavrn-js](https://github.com/just-tavrn/tavrn-js).
 
@@ -173,6 +194,11 @@ Implementation: [tavrn-crypto](https://github.com/just-tavrn/tavrn-crypto) and `
 - **Connectivity.** Media uses a UDP port range; ICE over TCP and an embedded TURN server (over UDP, or over TLS
   through the reverse proxy on port 443) cover strict networks. The client has a connection test that tries
   every path and says what to fix.
+- **Native voice in the desktop app.** On Linux (and on Windows as an experimental setting) the desktop app joins
+  calls with LiveKit's Rust SDK instead of the webview's WebRTC, through the same signaling proxy and with the same
+  frame keys, so it talks to browsers without any difference for the node.
+- **Moving members.** A member with the permission to move others can move a member into a voice channel that member
+  could not join or even see on their own; the move grants exactly that participation and ends with it.
 - Calls in DMs and group DMs, webcams with a tile view, screen sharing within node limits, a soundboard, a shared
   whiteboard and graceful reconnects use the same machinery.
 
