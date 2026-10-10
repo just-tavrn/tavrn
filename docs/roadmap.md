@@ -45,13 +45,14 @@ and a DNS record fallback.
 
 ### Phase 4: Voice, video, profiles and the whiteboard
 
-LiveKit supervised inside the image, voice channels with bitrate and user limits, mute and deafen, screen
-sharing and webcams with a tile view, end-to-end encrypted media with frame keys from MLS, the soundboard,
-graceful reconnects, ICE over TCP and an embedded TURN server, and a connection test. Voice and video settings
-(noise suppression, push-to-talk, background blur), calls in DMs and group DMs, profiles with animated avatars
-and presence, message requests from non-friends, a shared end-to-end encrypted whiteboard, and a polish round
-(context menus, moving members between channels, notifications, upload categories, spoilers, link previews,
-files channels, history for new members of encrypted channels, attachment encryption at rest on the node).
+LiveKit supervised inside the image, voice channels with bitrate and user limits, mute and deafen, screen sharing
+and webcams with a tile view, end-to-end encrypted media with frame keys from MLS, the soundboard, graceful
+reconnects, ICE over TCP and an embedded TURN server, and a connection test. Voice and video settings (noise
+suppression, push-to-talk, background blur), calls in DMs and group DMs, profiles with animated avatars and
+presence (also across nodes, reported by the client to every node it has a session on), message requests from
+non-friends, a shared end-to-end encrypted whiteboard, and a polish round (context menus, moving members between
+channels, notifications, upload categories, spoilers, link previews, files channels, history for new members of
+encrypted channels, attachment encryption at rest on the node).
 
 ### Phase 5: Platform maturity
 
@@ -62,6 +63,13 @@ channels, a local encrypted index for encrypted ones); announcement and forum ch
 interface and a `doctor` command for operators; per-user and per-room limits; optional Valkey to run one node
 as several instances; legal tooling (takedown notices, legal pages, terms acceptance, data export and account
 deletion) and a WCAG 2.2 AA accessibility audit with automated checks.
+
+Finished as part of phase 5 after the split: **threads** in text channels and **forum posts** with titles, tags
+and sorting; **web push notifications** through the home node; **reports with evidence**, a moderation inbox and
+**content rules for plaintext channels** (word lists, link filters) next to the metadata-based auto-moderation;
+**room ownership transfer** (also offered when an owner deletes their account); and **command interactions kept
+in Valkey**, so a pending bot interaction survives the restart of the instance that took it when a node runs as
+several instances.
 
 After phase 5 the project was split into its public repositories (see the [README](../README.md#repositories)),
 which are now in review.
@@ -101,16 +109,8 @@ Smaller items that are agreed in principle but not scheduled:
 
 - **Resumable uploads** for very large files: upload sessions with fixed-size parts that survive a lost
   connection or a reload (and an app restart in the native apps).
-- **Room ownership transfer**, so an owner can hand a room over (today owners delete their rooms before they
-  delete their account).
-- **Command interactions through Valkey**, so a pending bot interaction survives the restart of the instance
-  that holds it when a node runs as several instances.
 - **Attachments for bots and sealed webhooks**: files in posts that bots and write-only webhooks make in
   encrypted channels.
-- **Threads and forum posts**: posts with titles, tags and sorting in forum channels, threads in text
-  channels (the message format already reserves the field).
-- **Web push notifications** through the home node (the push hint between nodes is already specified).
-- **Content rules for plaintext channels** (word lists, link filters) next to the metadata-based
-  auto-moderation, and message reports with evidence.
-- Offline reading of the history a device keeps locally, client plugins, presence across nodes, cross-posting
-  of announcements between rooms, and S3-compatible storage for attachments.
+- Offline reading of the history a device keeps locally, client plugins, cross-posting of announcements between
+  rooms, and S3-compatible storage for attachments (files channels can already keep their files on WebDAV or
+  S3-compatible storage).
