@@ -162,6 +162,9 @@ Encryption is untouched by this: keys stay with the user, and replicas see only 
   admins are the ones able to act on the account.
 - **Age assurance beyond the self-declared date of birth**: verification through pluggable providers, node
   policies and federated claims that other nodes can trust.
+- **ARM servers**: a multi-architecture node image (`linux/amd64` and `linux/arm64`) built on native runners, with
+  a measured comparison of the two in the handbook; nothing in the node is architecture-specific, only the image
+  build is ([tavrn-node #44](https://github.com/just-tavrn/tavrn-node/issues/44)).
 
 ## Open ideas
 
