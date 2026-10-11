@@ -37,7 +37,7 @@ flowchart LR
 | Requirement | Why |
 |---|---|
 | **A domain** | It becomes the identity of your node and part of every address (`alice@chat.example.org`). Choose it with care: addresses cannot be renamed. You can serve the node on another host than the identity domain (delegation through `/.well-known/tavrn` or a DNS record), so `example.org` can be the identity while the node runs on `chat.example.org`. |
-| **A reverse proxy with TLS** | The node speaks plain HTTP only and does no certificate management on purpose. nginx, Caddy, Traefik or Nginx Proxy Manager terminate TLS and forward to the container, with WebSocket support. tavrn-node ships examples for nginx and Caddy. |
+| **A reverse proxy with TLS** | The node speaks plain HTTP only and does no certificate management on purpose. Any proxy that terminates TLS and passes WebSockets works; tavrn-node ships complete examples for Caddy, nginx, Nginx Proxy Manager, Traefik, Apache and HAProxy (`deploy/` and the handbook's "Reverse proxy and TLS"). |
 | **PostgreSQL** | The production database: the one in the provided compose file or any existing PostgreSQL server or managed service. (SQLite exists only for development.) |
 | **The image and a data volume** | The volume holds the node's signing keys, the key that encrypts data at rest, the storage key of the file encryption and the uploaded files. **Back it up together with the database**; without the key files the stored data is unreadable. |
 | **A UDP port range for voice** | Media bypasses the proxy: a UDP range (default `61000-61100`, about 50 participants node-wide) plus ICE over TCP on one port, published to the container, open in the firewall and forwarded by the router. Voice can also be switched off completely. |
