@@ -2,7 +2,7 @@
 
 tavrn is built in phases. Every phase ends with something usable, and the order was chosen so that the
 decisions that affect everything (identity, message format, encryption) were settled first. Phases 0 to 5 are
-done and phase 6 is in progress; the project is in private review before its first public release. There are no
+done and phase 6 is in progress; tavrn is pre-release software before its first stable release. There are no
 dates here: things ship when they are ready and tested.
 
 Ideas and wishes are welcome in [Discussions](https://github.com/just-tavrn/tavrn/discussions) (category
