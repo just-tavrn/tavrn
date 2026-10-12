@@ -23,6 +23,13 @@
 </p>
 
 <p align="center">
+  <strong>Website: <a href="https://tavrn.org">tavrn.org</a></strong> —
+  <a href="https://tavrn.org/download/">downloads</a> ·
+  <a href="https://tavrn.org/docs/">documentation for users and node operators</a> ·
+  <a href="https://tavrn.org/status/">status of the official node</a>
+</p>
+
+<p align="center">
   <a href="docs/architecture.md">Architecture</a> ·
   <a href="docs/roadmap.md">Roadmap</a> ·
   <a href="docs/self-hosting.md">Self-hosting</a> ·
