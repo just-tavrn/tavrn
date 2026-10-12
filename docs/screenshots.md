@@ -1,24 +1,25 @@
 # Screenshots
 
-The web client on a local demo node: a fictitious room "Night Owls Gaming" with four demo accounts, dark theme,
-English locale. Desktop screenshots are 1440×900, phone screenshots 390×844. How they are made:
+The web client on a local demo node: a fictitious room "Night Owls Gaming" with five demo accounts, dark theme,
+English locale. The pictures come from the website's screenshot pipeline ([tavrn.org](https://tavrn.org)); desktop
+screenshots are 1440×900, phone screenshots 390×844. How they are made:
 [assets/screenshots/README.md](../assets/screenshots/README.md).
 
 ## Chat
 
-An end-to-end encrypted text channel: Markdown, an image attachment, a code block, a spoiler, a reply and
-reactions; the member list grouped by roles on the right.
+An end-to-end encrypted text channel: Markdown, a pinned message with an image and a thread, a code block, a
+spoiler, a reply and reactions; the member list grouped by roles on the right.
 
-![A text channel with formatted messages, an image, a code block, a hidden spoiler, a reply and reactions](../assets/screenshots/chat-desktop.png)
+![A text channel with a pinned welcome message carrying an image and a thread, a code block, a hidden spoiler, a reply and reactions, and the member list grouped by roles](../assets/screenshots/chat-desktop.png)
 
 <p align="center"><img src="../assets/screenshots/chat-phone.png" alt="The same channel on a phone" width="300"></p>
 
 ## Voice and video
 
-A voice channel with three participants and a camera, end-to-end encrypted with keys from the channel's MLS
-group ("End-to-end encrypted" in the header). The channel list shows who is in which voice channel.
+A voice channel with four participants, a shared screen and a camera, end-to-end encrypted with keys from the
+channel's MLS group ("End-to-end encrypted" in the header). The channel list shows who is in which voice channel.
 
-![The voice stage with a camera tile and two avatar tiles](../assets/screenshots/voice-desktop.png)
+![The voice stage with a shared screen, a camera tile and two avatar tiles](../assets/screenshots/voice-desktop.png)
 
 <p align="center"><img src="../assets/screenshots/voice-phone.png" alt="The voice stage on a phone" width="300"></p>
 
@@ -37,17 +38,17 @@ The role editor of the room settings: hierarchy, colour, "show separately" and t
 
 ## Files channel
 
-A shared folder tree per channel. Files channels are end-to-end encrypted by default: names, folder names and
-contents are encrypted on the devices, and search runs on the local index. This picture shows a channel created
-without end-to-end encryption, which the client marks with a permanent banner.
+A shared folder tree per channel, with uploads, previews and a storage meter. Files channels are end-to-end
+encrypted by default: names, folder names and contents are encrypted on the devices, and search runs on the local
+index. A channel created without encryption gets a permanent banner saying so.
 
-![A files channel with folders and files and the banner that files are not end-to-end encrypted](../assets/screenshots/files-desktop.png)
+![A files channel with the folders Clips, Guides and Maps, six files with their sizes and uploaders, and the storage meter](../assets/screenshots/files-desktop.png)
 
 ## Security settings
 
 The mandatory second factor (authenticator app, passkeys), recovery codes, the recovery key and the security key.
 
-![The security settings with an authenticator app, a passkey that can unlock messages, recovery codes and the encryption section](../assets/screenshots/security-desktop.png)
+![The security settings with an active authenticator app, a passkey that can also unlock messages, and the recovery codes](../assets/screenshots/security-desktop.png)
 
 ## Adding a bot
 
