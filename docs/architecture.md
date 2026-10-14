@@ -212,7 +212,8 @@ The desktop app bundles the web client instead of loading it from a node, asks f
 and talks to that node over the public API like any other client; the client itself does not care which shell it runs
 in. There are two shells:
 
-- **Tauri on Windows (and macOS later):** a small native shell around the system's webview (WebView2 on Windows).
+- **Tauri on Windows, Android and macOS (experimental):** a small native shell around the system's webview
+  (WebView2 on Windows, the Chromium-based system webview on Android).
 - **Electron on Linux:** the WebKitGTK that Linux distributions ship has no WebRTC and differs from one distribution to
   the next, and a prototype of video in a native engine showed that every video feature would have to be built twice.
   Chromium brings voice, video and screen sharing with the client unchanged. If a future Tauri version offers a
@@ -221,9 +222,10 @@ in. There are two shells:
 Both shells keep the same rules: only the bundled client may call the shell, the node's own pages (for passkeys,
 single sign-on and captchas) open in a separate window without any access to it, the key of the local key store lives
 in the OS keychain, and global hotkeys observe keys without taking them away from a game. A Windows build of the
-Electron shell is planned as a fallback for machines where WebView2 causes trouble; the Tauri installer stays the
+Electron shell is the fallback for machines where WebView2 causes trouble; the Tauri installer stays the
 recommended one. Details:
-[`docs/DESKTOP.md`](https://github.com/just-tavrn/tavrn-web/blob/main/docs/DESKTOP.md) in tavrn-web.
+[`docs/DESKTOP.md`](https://github.com/just-tavrn/tavrn-web/blob/main/docs/DESKTOP.md) and, for the Android app,
+[`docs/ANDROID.md`](https://github.com/just-tavrn/tavrn-web/blob/main/docs/ANDROID.md) in tavrn-web.
 
 ## Applications, bots and webhooks
 

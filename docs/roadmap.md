@@ -71,26 +71,27 @@ and sorting; **web push notifications** through the home node; **reports with ev
 in Valkey**, so a pending bot interaction survives the restart of the instance that took it when a node runs as
 several instances.
 
-After phase 5 the project was split into its public repositories (see the [README](../README.md#repositories)),
-which are now in review.
+After phase 5 the project was split into its public repositories (see the [README](../README.md#repositories)).
 
 ## In progress
 
 ### Phase 6: Desktop and mobile apps
 
-Native apps built from the same web code base. The desktop app for Linux (an Electron shell) and Windows (a Tauri
-shell) exists; macOS, then Android and iOS follow.
+Native apps built from the same web code base. The desktop app for Windows (a Tauri shell) and Linux (an Electron
+shell) and the Android app exist, macOS builds are experimental; iOS follows.
 
 Done so far in the desktop app:
 
-- **The app itself**: a Tauri shell for Windows (`.msi`, NSIS installer) and, until the Electron packages replace them
-  in the releases, Linux (`.deb`, `.AppImage`) that bundles the web client instead of loading it from a node, updates
-  itself from signed releases and publishes a checksum file for every installer.
+- **The app itself**: a Tauri shell for Windows (`.msi`, NSIS installer) that bundles the web client instead of loading
+  it from a node, updates itself from signed releases through an update channel of its choice (stable, or beta with
+  the pre-releases) and publishes a checksum file for every installer.
 - **The Electron shell for Linux**: the same client in Chromium, so voice, video, screen sharing (the shell's own
   picker, the PipeWire portal on Wayland), the soundboard and the background effects work as in the browser; the OS
   keychain through the desktop's keyring, the tray, native notifications, downloads, global hotkeys with the Tauri
   app's key listener, a hardened shell (sandboxed renderer, a checked bridge, Electron's fuses), its own updater, and CI
-  with a full smoke test of the AppImage. It takes over the home node of an installed Tauri app.
+  with a full smoke test of the AppImage. It takes over the home node of an installed Tauri app. Its `.AppImage` and
+  `.deb` replaced the Tauri Linux bundles in the releases, passkeys work on FIDO2 security keys in the app, and a
+  Windows build of it is attached as a fallback for computers where WebView2 causes trouble.
 - **Signing in through the node's own page** (node picker, handoff to a sign-in window or the system browser), so
   passkeys, single sign-on and captchas work in the app, and **unlocking with a passkey**: the node's page seals the
   passkey's unlock material to the app, which the node can store but never open.
@@ -104,6 +105,15 @@ Done so far in the desktop app:
   A prototype of video in this engine showed that every video feature would have to be built twice, which led to the
   Electron shell for Linux; the prototype is archived, its measurements are kept in tavrn-web's desktop documentation.
 - **Downloads** through the native save dialog, with "Show in folder".
+- **Links into the app** (`tavrn://` invites, rooms and add links of applications), and an opt-in **game activity**
+  that shows "Playing `<game>`" for the games of an editable list, never window titles or other programs.
+- **macOS builds (experimental)**: one universal app for Apple Silicon and Intel, not signed with an Apple Developer
+  ID yet; they wait for a contributor with a Mac to verify them.
+
+Done so far in the Android app (`org.tavrn.app`, Android 8 and newer, an APK on every release): the same client with
+push through UnifiedPush (no Google services), voice in the background with a notification, an audio output switch,
+the front and back camera, screen sharing of the whole screen, unlocking with fingerprint, face or PIN through
+Android's keystore, passkeys in the app on nodes that accept its origin, `tavrn://` links and downloads.
 
 Done in the same cycle in the protocol, the node and the clients:
 
@@ -125,16 +135,29 @@ Done in the same cycle in the protocol, the node and the clients:
   warning before downloading executables, context menus that stay open while toggling, rail folders, voice quick
   menus and a screen wake lock during calls.
 - **Operators**: localized mails (English and German, replaceable templates), expiry notices for tokens, message
-  retention, live reload of auto-moderation rules and push notifications for new reports.
+  retention, live reload of auto-moderation rules and push notifications for new reports; a container image for
+  `linux/amd64` and `linux/arm64`, so a node runs natively on ARM servers; files channels that keep their files
+  only on external WebDAV or S3 stores, with a limit per store; and **reports across nodes**: a report about a user
+  of another node can be forwarded to that user's home node, whose admins are the ones able to act on the account.
+- **Polls and date polls** in channels, threads and DMs: single or multiple choice, or days and times answered yes,
+  maybe or no; questions, options and votes end-to-end encrypted in encrypted conversations, votes as signed records
+  next to the poll, an optional close time, and a *Create polls* permission.
+- **Voice**: a session timer and a status line in the voice header (with its own permission), "Mute for you" for a
+  single participant on your device, a hint when you talk while muted, dragging yourself into another voice channel,
+  screen shares that are joined on demand with a choice of the sound to share, the whiteboard as a tile of its own,
+  and new join, leave and ring sounds.
+- **View the room as a role**: room managers preview the channels, actions and settings a role gets, as a read-only
+  simulation on their device.
+- **Passkeys and encryption**: every passkey says whether it unlocks the encrypted messages, and "Enable message
+  unlock" adds that to a passkey added later or whose authenticator reports the needed extension only when used.
+- **Profiles** (avatars, names, bios) reach other nodes within seconds after a change.
 
 Next in phase 6:
 
-- The release wiring of the Electron shell: its Linux packages and update feed in every release (the Tauri Linux
-  bundles retire then), and a Windows build of the Electron shell as a fallback for machines where WebView2 causes
-  trouble, next to the recommended Tauri installer.
 - A decision on the native engine as the default on Windows after measurements on real hardware.
-- The macOS app.
-- Android and iOS apps with **native push notifications** and voice that keeps running with the display off.
+- Signed and notarized macOS builds, verified on real Macs.
+- The Android app in app stores, and the **iOS app** with native push notifications and voice that keeps running
+  with the display off.
 - The **local activity bridge**: with the user's consent, a local program (such as a game) can set the user's
   activity; the interface is already specified and mocked in the web client.
 - The local search index without the browser's size budget.
@@ -158,13 +181,8 @@ Encryption is untouched by this: keys stay with the user, and replicas see only 
 
 ### Also planned
 
-- **Reports across nodes**: a report about a user of another node can be forwarded to that user's home node, whose
-  admins are the ones able to act on the account.
 - **Age assurance beyond the self-declared date of birth**: verification through pluggable providers, node
   policies and federated claims that other nodes can trust.
-- **ARM servers**: a multi-architecture node image (`linux/amd64` and `linux/arm64`) built on native runners, with
-  a measured comparison of the two in the handbook; nothing in the node is architecture-specific, only the image
-  build is ([tavrn-node #44](https://github.com/just-tavrn/tavrn-node/issues/44)).
 
 ## Open ideas
 
