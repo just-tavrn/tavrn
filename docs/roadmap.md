@@ -106,7 +106,7 @@ Done so far in the desktop app:
   Electron shell for Linux; the prototype is archived, its measurements are kept in tavrn-web's desktop documentation.
 - **Downloads** through the native save dialog, with "Show in folder".
 - **Links into the app** (`tavrn://` invites, rooms and add links of applications), and an opt-in **game activity**
-  that shows "Playing <game>" for the games of an editable list, never window titles or other programs.
+  that shows "Playing `<game>`" for the games of an editable list, never window titles or other programs.
 - **macOS builds (experimental)**: one universal app for Apple Silicon and Intel, not signed with an Apple Developer
   ID yet; they wait for a contributor with a Mac to verify them.
 
