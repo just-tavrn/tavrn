@@ -81,7 +81,7 @@ already have.
 <table>
   <tr>
     <td width="50%"><img src="assets/screenshots/chat-desktop.png" alt="A text channel of the room Night Owls Gaming with formatted messages, a code block, a reply and reactions, the member list on the right"></td>
-    <td width="50%"><img src="assets/screenshots/voice-desktop.png" alt="A voice channel with the stage: participant tiles with a glowing border for the speaker and a webcam tile"></td>
+    <td width="50%"><img src="assets/screenshots/voice-desktop.png" alt="A voice channel with the stage: a shared screen, a webcam tile and avatar tiles, the channel status and the session timer in the header"></td>
   </tr>
   <tr>
     <td>A text channel: Markdown, code, replies, reactions, member list</td>
