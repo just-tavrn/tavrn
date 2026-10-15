@@ -23,6 +23,14 @@ channel's MLS group ("End-to-end encrypted" in the header). The channel list sho
 
 <p align="center"><img src="../assets/screenshots/voice-phone.png" alt="The voice stage on a phone" width="300"></p>
 
+## Polls
+
+A poll in an encrypted channel after voting: result bars with counts, shares and voters, your own vote marked, and
+**Change vote**. Date polls show their results as a compact grid of days and times. Votes in encrypted channels are
+encrypted too.
+
+![A poll in the encrypted channel raid-strategy with four options, result bars, the voters and the own vote marked](../assets/screenshots/poll-desktop.png)
+
 ## Search
 
 Search in encrypted channels runs on a local, encrypted index on the device; the status line says honestly what
@@ -56,6 +64,13 @@ The consent screen of an application's add link: who owns the bot, the permissio
 of its tokens, and a plain notice that a bot reads the encrypted channels it can view.
 
 ![The consent screen for adding the bot Raid Planner to a room](../assets/screenshots/consent-desktop.png)
+
+## Buttons and forms of bots
+
+Bots can add buttons, select menus and forms to their messages; the client draws them with its own controls. An
+answer can be visible to the person who clicked alone ("Only you can see this").
+
+![A message of the bot Raid Planner with an embed, buttons, a link button and an open select menu, and an answer only the viewer sees](../assets/screenshots/components-desktop.png)
 
 ## Node administration
 

@@ -12,12 +12,12 @@ map, the camera picture and the shared screen are illustrations (CC-BY-4.0, fict
 ## Making them again
 
 Run the website's pipeline (`shots/run.sh`, see `shots/README.md` there) against a current node and web client; it
-writes the full-size pictures (2880×1800 and 780×1688) and a manifest with every alt text and caption. Copy the ten
-pictures of the gallery here at half their size, for example with ImageMagick:
+writes the full-size pictures (2880×1800 and 780×1688) and a manifest with every alt text and caption. Copy the
+twelve pictures of the gallery here at half their size, for example with ImageMagick:
 
 ```sh
-for f in admin-desktop chat-desktop chat-phone consent-desktop files-desktop roles-desktop \
-         search-desktop security-desktop voice-desktop voice-phone; do
+for f in admin-desktop chat-desktop chat-phone components-desktop consent-desktop files-desktop poll-desktop \
+         roles-desktop search-desktop security-desktop voice-desktop voice-phone; do
   convert "$WEBSITE/shots/out/$f.png" -filter Lanczos -resize 50% -strip "assets/screenshots/$f.png"
 done
 ```
