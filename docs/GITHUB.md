@@ -20,7 +20,7 @@ runners, code security) are in the [`.github` repository's GitHub guide](https:/
 
 | Secret | Scope | Used by |
 |---|---|---|
-| `PUBLISH_CHECK_PRIVATE` | repository (organization once public) | `docs.yml` (job `publish-check`): comma-separated private domains, hosts and addresses that must never appear in the tree. Without it the check fails on purpose. Locally the same list lives in an untracked `.publish-check.private` (in the repository or its parent directory). |
+| `PUBLISH_CHECK_PRIVATE` | repository, as an **Actions secret and a Dependabot secret** (`gh secret set PUBLISH_CHECK_PRIVATE -R just-tavrn/tavrn` and the same with `--app dependabot`; Dependabot's pull requests see only Dependabot secrets) | `docs.yml` (job `publish-check`): comma-separated private domains, hosts and addresses that must never appear in the tree. Without it the check fails on purpose, except on Dependabot's pull requests: there the workflow sets `PUBLISH_CHECK_ALLOW_UNCONFIGURED=1`, the private-pattern step is skipped with a warning and every other step still runs; the push to `main` runs the full check. Locally the same list lives in an untracked `.publish-check.private` (in the repository or its parent directory). |
 | `CLA_PAT` | organization (as a repository secret while private, Free plan) | `cla.yml`: fine-grained token with Contents read and write on `just-tavrn/cla-signatures`. |
 
 ## Discussions: the organization's central place
