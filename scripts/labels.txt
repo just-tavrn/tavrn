@@ -1,0 +1,2 @@
+# Labels of this repository on top of the common set of scripts/github-labels.sh (name|colour|description).
+roadmap|1d76db|Concerns the roadmap or the phase plan
