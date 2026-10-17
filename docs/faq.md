@@ -87,25 +87,23 @@ Each part has the license that fits its role ([repository map](../README.md#repo
 - the **web client, the SDK and the bot runtime** are **Apache-2.0**, so anyone can build clients, bots and
   integrations, open or not;
 - the **encryption core and `@tavrn/e2ee`** are **MPL-2.0**, a file-level copyleft: you can embed them anywhere,
-  but changes to the encryption itself are published;
+  but distributed modifications to its MPL files must be made available in source form;
 - the **protocol** is **Apache-2.0** for the machine-readable parts and **CC-BY-4.0** for the prose, so other
   implementations can use it freely.
 
 ## Why is there a CLA?
 
-Contributors sign a short [contributor license agreement](https://github.com/just-tavrn/.github/blob/main/CLA.md)
-once, by commenting on their first pull request. You keep the copyright of your work; the agreement lets the
-project offer additional licenses next to the open-source ones (for example to a company that cannot accept the
-AGPL). It comes with a written promise: everything published under an open-source license stays available under
-it, and tavrn keeps being published under its open-source licenses. No DCO sign-off is needed.
+Contributors sign the [version 2 agreement](https://github.com/just-tavrn/.github/blob/main/agreements/cla-v2.md)
+once through the CLA bot. You retain copyright and contribute under the existing licenses, without granting
+additional relicensing rights. A future hosting company follows the same software licenses as everyone else.
+No DCO sign-off is required. See [governance](../GOVERNANCE.md) for project stewardship.
 
 ## May I host tavrn and call it tavrn?
 
-For yourself, your community, your company or your friends: yes, with the unmodified name and logo, also with
-your own configuration, theme and local patches. Distributing a **modified** version under the name, or running a
-**hosting business** under the name "tavrn", needs permission. The details and examples are in
-[TRADEMARK.md](../TRADEMARK.md). The code licenses are not affected: you may always run, change and share the
-software; only the name and the logo are protected.
+Yes, including commercially. You may offer "Managed hosting for tavrn by ExampleHost", charge for nodes
+and keep the original branding in an unmodified deployment. Clearly identify yourself as the operator;
+do not imply official affiliation or use tavrn as your own business identity. Modified products must be
+clearly distinguished from official releases. See [TRADEMARK.md](../TRADEMARK.md).
 
 ## Is tavrn accessible?
 

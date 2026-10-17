@@ -2,7 +2,7 @@
 
 | Files | License |
 |---|---|
-| Documents: `README.md`, everything under `docs/`, the governance texts (`CONTRIBUTING.md`, `SECURITY.md`, `CLA.md`, `TRADEMARK.md`, this file), the issue and pull-request templates | [CC-BY-4.0](LICENSE) |
+| Documents: `README.md`, everything under `docs/`, the governance texts (`CONTRIBUTING.md`, `SECURITY.md`, `CLA.md`, `GOVERNANCE.md`, `TRADEMARK.md`, this file), the issue and pull-request templates | [CC-BY-4.0](LICENSE) |
 | Screenshots in `assets/screenshots/` (they show the tavrn user interface with the logo; the trademark note below applies to the logo in them) | [CC-BY-4.0](LICENSE) |
 | Scripts (`scripts/`, `assets/screenshots/*.ts`), workflows (`.github/workflows/`) and configuration files | [Apache-2.0](LICENSE-APACHE), see [NOTICE](NOTICE) |
 | The logo and icons (`assets/logo*.png`, `assets/icon*.png`, `assets/tavrn-*.png`) | **not licensed**, see below |
