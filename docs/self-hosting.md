@@ -65,7 +65,9 @@ Hardware needs are modest: the node is a single Rust process, and the server nev
   roles, if your community already has a login.
 - **Legal setup**: imprint, privacy policy and terms (templates are included, marked as not legal advice), the
   takedown notice form and its contact. Depending on where you are and whom you serve, some of this may be
-  required by law; tavrn gives you the tools, the responsibility stays with you.
+  required by law; tavrn gives you the tools, the responsibility stays with you. Rooms can publish their own
+  privacy notice and legal notice; [room-legal.md](room-legal.md) explains for room managers and operators when
+  that may be needed and who is responsible for what.
 
 Every user's second factor is mandatory and cannot be switched off by the operator. You can never read the
 content of encrypted conversations; you do see metadata and plaintext channels. Be honest about that in your
