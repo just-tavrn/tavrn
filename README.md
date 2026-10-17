@@ -142,3 +142,5 @@ repository carries its own license (table above).
 The name "tavrn" and the logo and icons (the files in [`assets/`](assets)) are **not** covered by these
 licenses. Running your own node with the name and logo is fine; distributed forks and hosting businesses
 under the name need permission. See [TRADEMARK.md](TRADEMARK.md).
+
+Project stewardship and commercial hosting are described in [GOVERNANCE.md](GOVERNANCE.md).
